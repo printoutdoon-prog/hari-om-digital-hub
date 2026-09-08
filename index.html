@@ -94,20 +94,18 @@ footer{background:#0a172a;color:#d8e1ed;padding:30px 20px;text-align:center;font
 <footer>© Hari Om Computer Centre, Badripur, Dehradun • Learn • Create • Succeed</footer>
 <a class="whatsapp" href="https://wa.me/919997441103" target="_blank" aria-label="WhatsApp">✆</a>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const SUPABASE_URL = "https://llzlyvxnpxqcxmkqaqps.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_iSYEiUsGFBdxc5bmfwEbYQ_omLC0uQv";
-const { createClient } = window.supabase;
-const db = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
-
 const form=document.getElementById("printForm"), statusBox=document.getElementById("status"), btn=document.getElementById("submitBtn");
-
 function showStatus(msg, ok=false){statusBox.textContent=msg;statusBox.className="status "+(ok?"ok":"err");}
 function safeName(name){return name.replace(/[^a-zA-Z0-9._-]/g,"_").slice(-120);}
-function orderRef(){
-  const d=new Date(), stamp=d.getFullYear().toString()+String(d.getMonth()+1).padStart(2,"0")+String(d.getDate()).padStart(2,"0")+String(d.getHours()).padStart(2,"0")+String(d.getMinutes()).padStart(2,"0")+String(d.getSeconds()).padStart(2,"0");
-  return "HOCC-"+stamp+"-"+Math.random().toString(36).slice(2,7).toUpperCase();
+function orderRef(){const d=new Date(),stamp=d.getFullYear().toString()+String(d.getMonth()+1).padStart(2,"0")+String(d.getDate()).padStart(2,"0")+String(d.getHours()).padStart(2,"0")+String(d.getMinutes()).padStart(2,"0")+String(d.getSeconds()).padStart(2,"0");return "HOCC-"+stamp+"-"+Math.random().toString(36).slice(2,7).toUpperCase();}
+async function supabaseFetch(url, options={}){
+  const headers=new Headers(options.headers||{});
+  headers.set("apikey", SUPABASE_PUBLISHABLE_KEY);
+  headers.set("Authorization", "Bearer "+SUPABASE_PUBLISHABLE_KEY);
+  return fetch(url,{...options,headers});
 }
 form.addEventListener("submit", async e=>{
  e.preventDefault();
@@ -119,36 +117,20 @@ form.addEventListener("submit", async e=>{
  if(copies<1||copies>1000){showStatus("Copies must be between 1 and 1000.");return;}
  const allowed=["application/pdf","image/jpeg","image/png"];
  if(!allowed.includes(file.type)){showStatus("Only PDF, JPG and PNG files are allowed.");return;}
-
- btn.disabled=true; btn.textContent="Uploading…";
- showStatus("Uploading your file securely. Please wait…",true);
-
+ btn.disabled=true;btn.textContent="Uploading…";showStatus("Uploading your file securely. Please wait…",true);
  const ref=orderRef(), path=`orders/${ref}-${safeName(file.name)}`;
  try{
-   const {error:uploadError}=await db.storage.from("print-files").upload(path,file,{upsert:false,contentType:file.type});
-   if(uploadError) throw new Error("File upload failed: "+uploadError.message);
-
+   const uploadUrl=`${SUPABASE_URL}/storage/v1/object/print-files/${encodeURIComponent(path).replace(/%2F/g,"/")}`;
+   const up=await supabaseFetch(uploadUrl,{method:"POST",headers:{"Content-Type":file.type||"application/octet-stream","x-upsert":"false"},body:file});
+   if(!up.ok){let detail="Upload failed";try{const j=await up.json();detail=j.message||j.error||detail;}catch(_){}throw new Error("File upload failed: "+detail);}
    const instructions=document.getElementById("instructions").value.trim();
-   const storedInstructions=`Order Ref: ${ref}${instructions ? " | "+instructions : ""}`;
-   const row={
-     customer_name:name,mobile,file_name:file.name,file_path:path,
-     print_type:document.getElementById("print_type").value,
-     sides:document.getElementById("sides").value,
-     paper_size:document.getElementById("paper").value,
-     copies, instructions:storedInstructions,status:"pending"
-   };
-   const {error:dbError}=await db.from("print_orders").insert(row);
-   if(dbError) throw new Error("Order could not be saved: "+dbError.message);
-
-   const msg=`Hello Hari Om Computer Centre, I want to place a print order.%0A%0AOrder Ref: ${ref}%0AName: ${name}%0AMobile: ${mobile}%0AFile: ${file.name}%0APrint: ${row.print_type}%0ASides: ${row.sides}%0APaper: ${row.paper_size}%0ACopies: ${copies}%0AInstructions: ${instructions||"None"}%0A%0AThe file has already been uploaded to the online print system.`;
-   showStatus("File uploaded and order saved successfully. Opening WhatsApp…",true);
-   window.open(`https://wa.me/919997441103?text=${msg}`,"_blank");
-   form.reset();
- }catch(err){
-   console.error(err); showStatus(err.message||"Something went wrong. Please try again.");
- }finally{
-   btn.disabled=false; btn.textContent="Upload File & Send Order to WhatsApp";
- }
+   const row={customer_name:name,mobile,file_name:file.name,file_path:path,print_type:document.getElementById("print_type").value,sides:document.getElementById("sides").value,paper_size:document.getElementById("paper").value,copies,instructions:`Order Ref: ${ref}${instructions?" | "+instructions:""}`,status:"pending"};
+   const dbRes=await supabaseFetch(`${SUPABASE_URL}/rest/v1/print_orders`,{method:"POST",headers:{"Content-Type":"application/json","Prefer":"return=minimal"},body:JSON.stringify(row)});
+   if(!dbRes.ok){let detail="Order could not be saved";try{const j=await dbRes.json();detail=j.message||j.error_description||detail;}catch(_){}throw new Error(detail);}
+   const msg=`Hello Hari Om Computer Centre, I want to place a print order.%0A%0AOrder Ref: ${encodeURIComponent(ref)}%0AName: ${encodeURIComponent(name)}%0AMobile: ${encodeURIComponent(mobile)}%0AFile: ${encodeURIComponent(file.name)}%0APrint: ${encodeURIComponent(row.print_type)}%0ASides: ${encodeURIComponent(row.sides)}%0APaper: ${encodeURIComponent(row.paper_size)}%0ACopies: ${copies}%0AInstructions: ${encodeURIComponent(instructions||"None")}%0A%0AThe file has already been uploaded to the online print system.`;
+   showStatus("File uploaded and order saved successfully. Opening WhatsApp…",true);window.open(`https://wa.me/919997441103?text=${msg}`,"_blank");form.reset();
+ }catch(err){console.error(err);showStatus(err.message||"Something went wrong. Please try again.");}
+ finally{btn.disabled=false;btn.textContent="Upload File & Send Order to WhatsApp";}
 });
 </script>
 </body>
