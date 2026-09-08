@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hari Om Digital Hub | Become Your Own Boss</title>
+<meta name="description" content="Hari Om Digital Hub - Digital services, online printing and cyber cafe partner platform. Become your own boss and earn extra income.">
+<style>
+:root{--primary:#4f46e5;--secondary:#7c3aed;--dark:#111827;--muted:#6b7280;--light:#f8fafc;--card:#fff;--border:#e5e7eb;--success:#16a34a}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Arial,Helvetica,sans-serif;color:var(--dark);background:#fff;line-height:1.6}
+a{text-decoration:none;color:inherit}
+.container{width:min(1120px,92%);margin:auto}
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.nav{height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{font-weight:900;font-size:20px;letter-spacing:-.5px}
+.logo span{color:var(--primary)}
+nav{display:flex;gap:22px;align-items:center}
+nav a{font-size:14px;font-weight:700;color:#374151}
+nav a:hover{color:var(--primary)}
+.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:12px;padding:13px 20px;font-weight:800;cursor:pointer;transition:.2s}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;box-shadow:0 8px 20px rgba(79,70,229,.2)}
+.btn-primary:hover{transform:translateY(-2px)}
+.btn-outline{border:1px solid #c7d2fe;background:#fff;color:var(--primary)}
+.menu{display:none;font-size:26px;cursor:pointer}
+.hero{background:radial-gradient(circle at 85% 15%,#ddd6fe 0,transparent 32%),linear-gradient(135deg,#eef2ff,#faf5ff 55%,#fff);padding:90px 0 75px}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:55px;align-items:center}
+.badge{display:inline-block;background:#ede9fe;color:#5b21b6;border-radius:999px;padding:7px 13px;font-size:13px;font-weight:800;margin-bottom:18px}
+h1{font-size:clamp(42px,6vw,72px);line-height:1.02;letter-spacing:-3px;margin-bottom:20px}
+.gradient{background:linear-gradient(90deg,var(--primary),var(--secondary));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{font-size:18px;color:#4b5563;max-width:650px;margin-bottom:28px}
+.actions{display:flex;gap:12px;flex-wrap:wrap}
+.hero-card{background:#fff;border:1px solid #ddd6fe;border-radius:25px;padding:28px;box-shadow:0 25px 60px rgba(76,29,149,.12)}
+.hero-card h3{font-size:22px;margin-bottom:18px}
+.mock-dash{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stat{padding:17px;border-radius:16px;background:#f8fafc;border:1px solid var(--border)}
+.stat b{font-size:25px;display:block}
+.stat small{color:var(--muted)}
+.section{padding:80px 0}
+.section.alt{background:var(--light)}
+.center{text-align:center}
+.section-title{font-size:38px;letter-spacing:-1.5px;margin-bottom:10px}
+.section-sub{color:var(--muted);max-width:680px;margin:0 auto 38px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:25px;box-shadow:0 8px 25px rgba(15,23,42,.04)}
+.icon{font-size:32px;margin-bottom:12px}
+.card h3{margin-bottom:7px}
+.card p{color:var(--muted);font-size:14px}
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:15px}
+.step{padding:22px;border:1px solid var(--border);border-radius:18px;background:#fff}
+.num{width:35px;height:35px;border-radius:50%;display:grid;place-items:center;background:#eef2ff;color:var(--primary);font-weight:900;margin-bottom:15px}
+.pricing{grid-template-columns:repeat(3,1fr)}
+.price-card{position:relative}
+.price-card.featured{border:2px solid var(--primary);transform:translateY(-6px)}
+.popular{position:absolute;right:18px;top:18px;background:#eef2ff;color:var(--primary);font-size:11px;font-weight:900;padding:5px 8px;border-radius:999px}
+.price{font-size:42px;font-weight:900;margin:12px 0}
+.price span{font-size:14px;color:var(--muted);font-weight:600}
+.features{list-style:none;margin:20px 0}
+.features li{padding:7px 0;color:#374151;font-size:14px}
+.cta{background:linear-gradient(135deg,#111827,#312e81);color:#fff;border-radius:25px;padding:50px;text-align:center}
+.cta p{color:#d1d5db;margin:10px auto 22px;max-width:650px}
+.form-wrap{max-width:720px;margin:auto}
+form{display:grid;gap:14px}
+input,select,textarea{width:100%;padding:13px 14px;border:1px solid #d1d5db;border-radius:10px;font:inherit;background:#fff}
+textarea{min-height:110px;resize:vertical}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.filebox{border:2px dashed #c7d2fe;padding:25px;border-radius:15px;background:#fafaff;text-align:center}
+#fileName{font-size:13px;color:var(--muted);margin-top:7px}
+.notice{display:none;margin-top:15px;padding:12px;border-radius:10px;background:#dcfce7;color:#166534;font-weight:700}
+footer{background:#0f172a;color:#cbd5e1;padding:45px 0 25px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:35px}
+footer h3,footer h4{color:#fff;margin-bottom:12px}
+footer a{display:block;font-size:14px;margin:7px 0;color:#cbd5e1}
+.copy{border-top:1px solid #334155;margin-top:30px;padding-top:18px;font-size:13px}
+.whatsapp{position:fixed;right:20px;bottom:20px;background:#16a34a;color:#fff;width:55px;height:55px;border-radius:50%;display:grid;place-items:center;font-size:25px;z-index:40;box-shadow:0 8px 20px rgba(0,0,0,.2)}
+@media(max-width:850px){
+nav{display:none;position:absolute;top:72px;left:0;right:0;background:#fff;padding:18px;flex-direction:column;border-bottom:1px solid var(--border)}
+nav.show{display:flex}.menu{display:block}.hero-grid{grid-template-columns:1fr}.grid,.pricing{grid-template-columns:1fr 1fr}.steps{grid-template-columns:1fr 1fr}.footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:560px){
+.hero{padding:60px 0}.grid,.pricing,.steps,.two,.footer-grid{grid-template-columns:1fr}h1{letter-spacing:-2px}.section{padding:60px 0}.cta{padding:35px 22px}
+}
+</style>
+</head>
+<body>
+<header>
+<div class="container nav">
+<a class="logo" href="#home">HARI OM <span>DIGITAL HUB</span></a>
+<div class="menu" onclick="document.querySelector('nav').classList.toggle('show')">☰</div>
+<nav>
+<a href="#home">Home</a><a href="#services">Services</a><a href="#how">How It Works</a><a href="#pricing">Pricing</a><a href="#partner">Partner</a><a href="#print">Online Print</a>
+<a class="btn btn-primary" href="#partner">Join Now</a>
+</nav>
+</div>
+</header>
+
+<main id="home">
+<section class="hero">
+<div class="container hero-grid">
+<div>
+<span class="badge">🚀 DIGITAL BUSINESS PLATFORM</span>
+<h1>Become Your <span class="gradient">Own Boss.</span><br>Earn Extra Income.</h1>
+<p>Build your digital service business with online printing, document tools, PVC cards, passport photos and customer orders — all from one simple platform.</p>
+<div class="actions"><a class="btn btn-primary" href="#partner">Become a Partner</a><a class="btn btn-outline" href="#print">Try Online Printing</a></div>
+<p style="font-size:13px;margin-top:18px">Powered by Hari Om Computer Centre • Badripur, Dehradun</p>
+</div>
+<div class="hero-card">
+<h3>📊 Partner Dashboard</h3>
+<div class="mock-dash">
+<div class="stat"><b>18</b><small>Today's Orders</small></div>
+<div class="stat"><b>₹1,850</b><small>Today's Sales</small></div>
+<div class="stat"><b>426</b><small>Customers</small></div>
+<div class="stat"><b>₹15,200</b><small>Monthly Profit</small></div>
+</div>
+<div style="margin-top:16px;padding:16px;border-radius:16px;background:#eef2ff;color:#3730a3;font-weight:800">✓ Online Orders &nbsp; ✓ Customer QR &nbsp; ✓ Print Queue</div>
+</div>
+</div>
+</section>
+
+<section class="section" id="services">
+<div class="container">
+<div class="center"><h2 class="section-title">Everything Your Digital Centre Needs</h2><p class="section-sub">Offer more services, manage orders and create a professional customer experience.</p></div>
+<div class="grid">
+<div class="card"><div class="icon">🖨️</div><h3>Online Printing</h3><p>Customers upload documents, choose print options and place orders.</p></div>
+<div class="card"><div class="icon">🪪</div><h3>PVC Card</h3><p>Create and print Aadhaar, PAN, Voter and other ID cards.</p></div>
+<div class="card"><div class="icon">📸</div><h3>Passport Photos</h3><p>Resize photos and prepare multiple passport photos for printing.</p></div>
+<div class="card"><div class="icon">📄</div><h3>PDF Tools</h3><p>Merge, split, compress and convert common document formats.</p></div>
+<div class="card"><div class="icon">📋</div><h3>Resume & Forms</h3><p>Help customers create resumes and complete online applications.</p></div>
+<div class="card"><div class="icon">📊</div><h3>Business Dashboard</h3><p>Track orders, sales, customers and profit from one place.</p></div>
+</div>
+</div>
+</section>
+
+<section class="section alt" id="how">
+<div class="container">
+<div class="center"><h2 class="section-title">How It Works</h2><p class="section-sub">A simple workflow for your customers and your centre.</p></div>
+<div class="steps">
+<div class="step"><div class="num">1</div><h3>Register</h3><p>Join as a digital centre partner.</p></div>
+<div class="step"><div class="num">2</div><h3>Set Rates</h3><p>Choose your own service and print rates.</p></div>
+<div class="step"><div class="num">3</div><h3>Get Orders</h3><p>Customers upload documents online.</p></div>
+<div class="step"><div class="num">4</div><h3>Print & Serve</h3><p>Process orders from your dashboard.</p></div>
+<div class="step"><div class="num">5</div><h3>Earn</h3><p>Grow repeat customers and income.</p></div>
+</div>
+</div>
+</section>
+
+<section class="section" id="pricing">
+<div class="container">
+<div class="center"><h2 class="section-title">Simple Pricing</h2><p class="section-sub">Start small. Upgrade when your business grows.</p></div>
+<div class="grid pricing">
+<div class="card price-card"><h3>Starter</h3><div class="price">₹99<span>/month</span></div><ul class="features"><li>✓ Basic digital tools</li><li>✓ Customer upload</li><li>✓ Order management</li><li>✓ Basic dashboard</li></ul><a class="btn btn-outline" href="#partner">Start Starter</a></div>
+<div class="card price-card featured"><span class="popular">POPULAR</span><h3>Professional</h3><div class="price">₹299<span>/month</span></div><ul class="features"><li>✓ Everything in Starter</li><li>✓ Online orders</li><li>✓ Customer management</li><li>✓ Profit reports</li><li>✓ Marketing tools</li></ul><a class="btn btn-primary" href="#partner">Join Professional</a></div>
+<div class="card price-card"><h3>Auto Print</h3><div class="price">₹499<span>/month</span></div><ul class="features"><li>✓ Everything in Professional</li><li>✓ Print queue</li><li>✓ Auto Print Agent</li><li>✓ Printer management</li><li>✓ Advanced reporting</li></ul><a class="btn btn-outline" href="#partner">Start Auto Print</a></div>
+</div>
+<p class="center" style="margin-top:20px;color:#6b7280;font-size:13px">Pricing shown is a proposed starter structure and can be changed before launch.</p>
+</div>
+</section>
+
+<section class="section alt" id="print">
+<div class="container">
+<div class="center"><h2 class="section-title">Online Printing</h2><p class="section-sub">Demo customer upload form. This front-end version does not yet send files to a real printer.</p></div>
+<div class="form-wrap card">
+<form id="printForm">
+<div class="two"><input required placeholder="Customer Name"><input required type="tel" placeholder="Mobile Number"></div>
+<div class="filebox"><strong>📁 Upload PDF / JPG / PNG</strong><input id="file" type="file" accept=".pdf,.jpg,.jpeg,.png" style="margin-top:12px"><div id="fileName">No file selected</div></div>
+<div class="two"><select><option>Black & White</option><option>Colour</option></select><select><option>Single Side</option><option>Duplex / Both Sides</option></select></div>
+<div class="two"><select><option>A4</option><option>Legal</option><option>A3</option></select><input type="number" min="1" value="1" placeholder="Copies"></div>
+<textarea placeholder="Special instructions (optional)"></textarea>
+<button class="btn btn-primary" type="submit">Submit Print Request</button>
+<div class="notice" id="printNotice">Demo request created. Connect a backend/payment system to make this live.</div>
+</form>
+</div>
+</div>
+</section>
+
+<section class="section" id="partner">
+<div class="container">
+<div class="cta">
+<h2 style="font-size:38px;letter-spacing:-1px">Ready to Become Your Own Boss?</h2>
+<p>Register your cyber café, computer centre or digital service business with Hari Om Digital Hub.</p>
+<a class="btn btn-primary" href="#partnerForm" style="background:#fff;color:#312e81">Join as Partner</a>
+</div>
+<div class="form-wrap card" id="partnerForm" style="margin-top:30px">
+<h2 style="margin-bottom:5px">Partner Registration</h2><p style="color:#6b7280;margin-bottom:18px">Demo form — submissions currently stay in your browser.</p>
+<form id="partnerFormEl">
+<div class="two"><input required placeholder="Full Name"><input required type="tel" placeholder="Mobile Number"></div>
+<div class="two"><input required placeholder="Business / Centre Name"><input type="email" placeholder="Email"></div>
+<div class="two"><input placeholder="City"><input placeholder="Pincode"></div>
+<textarea placeholder="Services you currently offer"></textarea>
+<button class="btn btn-primary" type="submit">Create Partner Request</button>
+<div class="notice" id="partnerNotice">Thank you! Your partner request has been recorded in this demo.</div>
+</form>
+</div>
+</div>
+</section>
+</main>
+
+<a class="whatsapp" href="https://wa.me/919997441103?text=Hello%20Hari%20Om%20Digital%20Hub%2C%20I%20want%20to%20become%20a%20partner." target="_blank" aria-label="WhatsApp">☏</a>
+
+<footer>
+<div class="container">
+<div class="footer-grid">
+<div><h3>HARI OM DIGITAL HUB</h3><p>Become Your Own Boss • Earn Extra Income.</p><p style="margin-top:10px">Hari Om Computer Centre<br>Badripur, Dehradun, Uttarakhand</p></div>
+<div><h4>Platform</h4><a href="#services">Services</a><a href="#pricing">Pricing</a><a href="#print">Online Printing</a><a href="#partner">Become Partner</a></div>
+<div><h4>Tools</h4><a href="#services">PDF Tools</a><a href="#services">PVC Card</a><a href="#services">Passport Photo</a><a href="#services">Resume</a></div>
+<div><h4>Contact</h4><a href="tel:+919997441103">9997441103</a><a href="mailto:printoutdoon@gmail.com">printoutdoon@gmail.com</a><a href="https://wa.me/919997441103" target="_blank">WhatsApp</a></div>
+</div>
+<div class="copy">© 2026 Hari Om Digital Hub. All rights reserved. <span style="float:right">Demo Version</span></div>
+</div>
+</footer>
+
+<script>
+const file=document.getElementById('file');
+file.addEventListener('change',()=>{document.getElementById('fileName').textContent=file.files[0]?file.files[0].name:'No file selected'});
+document.getElementById('printForm').addEventListener('submit',e=>{e.preventDefault();document.getElementById('printNotice').style.display='block'});
+document.getElementById('partnerFormEl').addEventListener('submit',e=>{e.preventDefault();document.getElementById('partnerNotice').style.display='block'});
+document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>document.querySelector('nav').classList.remove('show')));
+</script>
+</body>
+</html>
